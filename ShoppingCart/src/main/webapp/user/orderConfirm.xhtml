@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<main>
+		<div class="container mt-5 mb-5">
+			<div class="m-3" style="display: flex; justify-content: flex-end">
+				<h:link
+					styleClass="btn btn-secondary btn-lg btn-block fa fa-store me-2"
+					value="Continue Shopping" outcome="/user/product.xhtml" />
+			</div>
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-8">
+					<div class="card">
+						<div class="text-left p-2 px-5"
+							style="background-color: #eeeeeea8">
+							<img src="#{request.contextPath}/resources/images/logo.jpg"
+								width="50"></img>
+						</div>
+						<div class="invoice p-5">
+							<h5>Your order Confirmed!</h5>
+							<span class="font-weight-bold d-block mt-4">Hello,
+								${user.firstName}</span> <span>You order has been confirmed and
+								will be shipped in next two days!</span>
+							<div class="payment border-top mt-3 mb-3 border-bottom">
+								<div class="py-2">
+									<span class="d-block text-muted">Order Date:</span> <span>${lastOrder.orderDate}</span>
+								</div>
+								<div class="py-2">
+									<span class="d-block text-muted">Order No:</span> <span>${lastOrder.orderNum}</span>
+								</div>
+								<div class="py-2">
+									<span class="d-block text-muted">Shipping Address:</span> <span>${lastOrder.customerAddress}</span>
+								</div>
+							</div>
+							<div class="product border-bottom table-responsive">
+								<h:dataTable value="${lastOrder.orderProducts}"
+									var="orderProduct" styleClass="table table-borderless">
+									<h:column>
+
+										<img
+											src="data:image/png;base64,#{productController.convertImageByteToString(orderProduct.product.image)}"
+											alt="Product" width="90"></img>
+									</h:column>
+									<h:column>
+										<span class="font-weight-bold">${orderProduct.product.prdctName}</span>
+										<div>
+											<span class="d-block"
+												style="font-size: 12px; color: #dedbdb;">Quantity:
+												${orderProduct.productQntty} </span> <span>Category:
+												${orderProduct.product.category.ctgry}</span>
+										</div>
+									</h:column>
+									<h:column>
+										<div class="text-right">
+											<span class="font-weight-bold">&#8377;${orderProduct.subTotal}</span>
+										</div>
+									</h:column>
+								</h:dataTable>
+							</div>
+							<div class="row d-flex justify-content-end">
+								<div class="col-md-5">&#8377;${lastOrder.amount}</div>
+							</div>
+							<p>We will be sending shipping confirmation email when the
+								item shipped successfully!</p>
+							<p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</ui:define>
+</ui:composition>
+</html>

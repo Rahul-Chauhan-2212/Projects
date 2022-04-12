@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<div class="container h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+					<div class="card" style="border-radius: 15px;">
+						<div class="card-body p-5">
+							<h2 class="text-uppercase text-center mb-5">Add Product</h2>
+							<h:form enctype="multipart/form-data" prependId="false"
+								id="addProduct">
+								<h:message errorClass="text-danger" infoClass="text-success"
+									for="addProduct" />
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Product Code: " />
+									<h:inputText styleClass="form-control" id="prdctCd"
+										value="#{productController.product.prdctCd}" required="true"
+										requiredMessage="Enter Unique Product." />
+									<h:message styleClass="text-danger" for="prdctCd" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Product Name: " />
+									<h:inputText styleClass="form-control" id="prdctNm"
+										value="#{productController.product.prdctName}" required="true"
+										requiredMessage="Enter Product Name." />
+									<h:message styleClass="text-danger" for="prdctNm" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold"
+										value="Product Description: " />
+									<h:inputText styleClass="form-control" id="prdctDesc"
+										value="#{productController.product.prdctDesc}" required="true"
+										requiredMessage="Enter Product Description" />
+									<h:message styleClass="text-danger" for="prdctDesc" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Quantity: " />
+									<h:inputText styleClass="form-control" id="prdctQntty"
+										value="#{productController.product.avlblQnnty}"
+										required="true" requiredMessage="Enter Quantities Available." />
+									<h:message styleClass="text-danger" for="prdctQntty" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Price: " />
+									<h:inputText styleClass="form-control" id="prdctPrc"
+										value="#{productController.product.price}" required="true"
+										requiredMessage="Enter Product Price." />
+									<h:message styleClass="text-danger" for="prdctPrc" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Category: " />
+									<h:selectOneMenu styleClass="form-control"
+										value="#{productController.product.category}"
+										converter="${categoryConverter}">
+										<f:selectItems value="#{productController.getAllCategories()}"
+											var="category" itemLabel="#{category.ctgry}"
+											itemValue="#{category}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" value="Image: " />
+									<h:inputFile value="#{productController.uploadedFile}"
+										id="image" required="true"
+										requiredMessage="Please Upload an image">
+										<f:validator validatorId="fileUploadValidator" />
+										<f:ajax listener="#{productController.upload}" execute="image"
+											render="imageError" />
+									</h:inputFile>
+									<p>
+										<h:message for="image" id="imageError"
+											styleClass="fw-bold text-danger" />
+									</p>
+								</div>
+								<br></br>
+								<h:link
+									styleClass="btn btn-secondary btn-lg btn-block fa fa-solid fa-backward me-2"
+									value="Back" outcome="admin" />
+								<h:commandLink
+									styleClass="btn btn-success btn-lg btn-block fa fa-solid fa-plus"
+									value="Add" action="#{productController.addProduct}" />
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

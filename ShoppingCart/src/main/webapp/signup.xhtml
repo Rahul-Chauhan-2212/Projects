@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>Sign Up Page</title>
+	<!-- CSS only -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous"></link>
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/css/background.css"></link>
+</h:head>
+<h:body>
+	<section class="vh-110 bg-image"
+		style="background-image: url(#{request.contextPath}/resources/images/background.webp);">
+	<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+		<div class="container h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+					<div class="card" style="border-radius: 15px;">
+						<div class="card-body p-5">
+							<h2 class="text-uppercase text-center mb-5">Create an
+								account</h2>
+							<h:form>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="firstName"
+										value="First Name: " />
+									<h:inputText styleClass="form-control" id="firstName"
+										value="#{signupController.user.firstName}"
+										pt:placeholder="Please Enter First Name" required="true"
+										requiredMessage="First Name is required" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="lastName"
+										value="Last Name: " />
+									<h:inputText styleClass="form-control" id="lastName"
+										value="#{signupController.user.lastName}"
+										pt:placeholder="Please Enter Last Name" required="true"
+										requiredMessage="Last Name is required" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="email"
+										value="Email: " />
+									<h:inputText styleClass="form-control" id="email"
+										value="#{signupController.user.username}"
+										pt:placeholder="Please Enter Email Id" required="true"
+										requiredMessage="Email Id is required" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="contactNo"
+										value="Contact No: " />
+									<h:inputText styleClass="form-control" id="contactNo"
+										value="#{signupController.user.contactNo}"
+										pt:placeholder="Please Enter Contact No" required="true"
+										requiredMessage="Contact No is required" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="password"
+										value="Password: " />
+									<h:inputSecret styleClass="form-control" id="password"
+										value="#{signupController.user.password}"
+										pt:placeholder="Please Enter Password" required="true"
+										requiredMessage="Password is required" />
+								</div>
+								<div class="form-group">
+									<h:outputLabel style="font-weight:bold" for="confirmPassword"
+										value="Confirm Password: " />
+									<h:inputSecret styleClass="form-control" id="confirmPassword"
+										value="#{signupController.user.confirmPassword}"
+										pt:placeholder="Please Enter Password Again" required="true"
+										requiredMessage="Confirm Password is required" />
+								</div>
+								<br></br>
+								<h:commandButton
+									styleClass="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+									value="Sign Up" action="#{signupController.createUserAccount}" />
+
+							</h:form>
+							<div>
+								<p class="mb-0">
+									Already have an Account?
+									<h:link styleClass="text-green-50 fw-bold" value="Log In"
+										outcome="index" />
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+</h:body>
+</html>

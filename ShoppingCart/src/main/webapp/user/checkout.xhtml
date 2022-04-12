@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 order-md-2 mb-4">
+					<h4 class="d-flex justify-content-between align-items-center mb-3">
+						<span class="text-muted">Cart</span> <span
+							class="badge badge-secondary badge-pill">${cartController.getCartSize(username)}</span>
+					</h4>
+					<ul class="list-group mb-3 sticky-top">
+						<ui:repeat var="cartProduct"
+							value="#{cartController.getCartProducts(username)}">
+							<li
+								class="list-group-item d-flex justify-content-between lh-condensed">
+								<div>
+									<h6 class="my-0">${cartProduct.product.prdctName}</h6>
+									<small class="text-muted">${cartProduct.product.category.ctgry}</small>
+								</div> <span class="text-muted">&#8377; ${cartProduct.subTotal}</span>
+							</li>
+						</ui:repeat>
+						<li class="list-group-item d-flex justify-content-between"><span>Total
+								(INR)</span> <strong>&#8377;${cartController.getCartTotal(username)}</strong></li>
+					</ul>
+				</div>
+				<div class="col-md-8 order-md-1">
+					<h4 class="mb-3">Billing address</h4>
+					<h:form>
+						<div class="mb-3">
+							<h:outputLabel style="font-weight:bold" for="fullName"
+								value="Full Name: " />
+							<h:inputText styleClass="form-control" id="fullName"
+								value="#{orderController.order.customerName}"
+								pt:placeholder="Please Enter Full Name" required="true"
+								requiredMessage="Full Name is required" />
+							<h:message for="fullName" styleClass="text-danger"></h:message>
+						</div>
+						<div class="mb-3">
+							<h:outputLabel style="font-weight:bold" for="contactNo"
+								value="Contact No: " />
+							<h:inputText styleClass="form-control" id="contactNo"
+								value="#{orderController.order.customerPhone}"
+								pt:placeholder="Please Enter Contact No" required="true"
+								requiredMessage="Contact No is required" />
+							<h:message for="contactNo" styleClass="text-danger"></h:message>
+						</div>
+						<div class="mb-3">
+							<h:outputLabel style="font-weight:bold" for="emailId"
+								value="Email Id: " />
+							<h:inputText styleClass="form-control" id="emailId"
+								value="#{orderController.order.customerEmail}"
+								pt:placeholder="Please Enter Email Id" required="true"
+								requiredMessage="Email Id is required for Shipping Updates" />
+							<h:message for="emailId" styleClass="text-danger"></h:message>
+						</div>
+						<div class="mb-3">
+							<h:outputLabel style="font-weight:bold" for="addressLine1"
+								value="Address Line1: " />
+							<h:inputText styleClass="form-control" id="addressLine1"
+								value="#{orderController.order.customerAddress.addressLine1}"
+								pt:placeholder="Please Enter Street/HouseNo/Area"
+								required="true" requiredMessage="Address Line1 is required." />
+							<h:message for="addressLine1" styleClass="text-danger"></h:message>
+						</div>
+						<div class="mb-3">
+							<h:outputLabel style="font-weight:bold" for="addressLine2"
+								value="Address Line2: " />
+							<h:inputText styleClass="form-control" id="addressLine2"
+								value="#{orderController.order.customerAddress.addressLine2}"
+								pt:placeholder="Please Enter Landmark" />
+						</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<h:outputLabel style="font-weight:bold" for="city"
+									value="City: " />
+								<h:inputText styleClass="form-control" id="city"
+									value="#{orderController.order.customerAddress.city}"
+									pt:placeholder="Please Enter City" required="true"
+									requiredMessage="City is required." />
+								<h:message for="city" styleClass="text-danger"></h:message>
+							</div>
+							<div class="col-md-6 mb-3">
+								<h:outputLabel style="font-weight:bold" for="state"
+									value="State: " />
+								<h:inputText styleClass="form-control" id="state"
+									value="#{orderController.order.customerAddress.state}"
+									pt:placeholder="Please Enter State" required="true"
+									requiredMessage="State is required." />
+								<h:message for="state" styleClass="text-danger"></h:message>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<h:outputLabel style="font-weight:bold" for="country"
+									value="Country: " />
+								<h:inputText styleClass="form-control" id="country"
+									value="#{orderController.order.customerAddress.country}"
+									pt:placeholder="Please Enter Country" required="true"
+									requiredMessage="Country is required." />
+								<h:message for="country" styleClass="text-danger"></h:message>
+							</div>
+							<div class="col-md-6 mb-3">
+								<h:outputLabel style="font-weight:bold" for="zipCode"
+									value="Pin Code: " />
+								<h:inputText styleClass="form-control" id="zipCode"
+									value="#{orderController.order.customerAddress.zipCode}"
+									pt:placeholder="Please Enter Pin Code" required="true"
+									requiredMessage="Pin Code is required." />
+								<h:message for="zipCode" styleClass="text-danger"></h:message>
+							</div>
+						</div>
+						<hr class="mb-4"></hr>
+						<h:link
+							styleClass="btn btn-secondary btn-lg btn-block fa fa-backward me-2"
+							value="Back to Cart" outcome="cart" />
+						<h:commandButton id="checkout"
+							styleClass="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+							value="Checkout"
+							action="#{orderController.createOrder(username)}" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+		</main>
+	</ui:define>
+</ui:composition>
+</html>

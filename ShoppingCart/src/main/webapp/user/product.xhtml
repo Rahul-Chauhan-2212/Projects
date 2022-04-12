@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<main>
+		<div class="container">
+			<div style="display: flex; justify-content: center;">
+				<h:messages id="addProductToCart" errorClass="text-danger"
+					infoClass="text-success" globalOnly="true"></h:messages>
+			</div>
+			<div class="row row-cols-4">
+				<ui:repeat var="product"
+					value="#{productController.getAllProducts()}">
+					<div class="col-sm-3 mb-3 d-flex align-items-stretch">
+						<div class="card">
+							<img
+								src="data:image/png;base64,#{productController.convertImageByteToString(product.image)}"
+								class="card-img-top" alt="Image Not Available"></img>
+							<div class="card-body d-flex flex-column">
+								<div class="d-flex justify-content-between">
+									<p class="small text-muted">${product.category.ctgry}</p>
+									<p class="small text-muted">${product.prdctCd}</p>
+								</div>
+								<div class="d-flex justify-content-between mb-3">
+									<h5 class="mb-0">${product.prdctName}</h5>
+									<h5 class="text-dark mb-0">Price: &#8377;${product.price}</h5>
+								</div>
+								<div class="d-flex justify-content-between">
+									<h6>Available: ${product.avlblQnnty}</h6>
+								</div>
+								<div class="d-flex justify-content-between">
+									<p class="text-muted">${product.prdctDesc}</p>
+								</div>
+								<h:form>
+									<h:commandLink id="addProductToCart"
+										styleClass="btn btn-primary mt-auto align-self-start"
+										value="Add to Cart"
+										action="#{cartController.addProductToCart(product,username)}" />
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+		</main>
+	</ui:define>
+</ui:composition>
+</html>

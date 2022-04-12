@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<main>
+		<div class="container">
+			<div style="display: flex; justify-content: center;">
+				<h:messages errorClass="text-danger" infoClass="text-success"
+					globalOnly="true"></h:messages>
+			</div>
+			<div class="cart-body m-4 p-4">
+				<!-- Cart Item-->
+				<ui:repeat var="cartProduct"
+					value="#{cartController.getCartProducts(username)}">
+					<div class="cart-item d-md-flex justify-content-between">
+						<h:form>
+							<h:commandLink id="removeProductFromCart"
+								action="#{cartController.removeProductFromCart(cartProduct,username)}">
+								<span class="remove-item"><i class="fa fa-times"></i></span>
+							</h:commandLink>
+						</h:form>
+						<div class="px-3 my-3">
+							<a class="cart-item-product" href="#">
+								<div class="cart-item-product-thumb">
+									<img
+										src="data:image/png;base64,#{productController.convertImageByteToString(cartProduct.product.image)}"
+										alt="Product"></img>
+								</div>
+								<div class="cart-item-product-info">
+									<h4 class="cart-item-product-title">${cartProduct.product.prdctName}</h4>
+									<span><strong>Category:</strong>
+										${cartProduct.product.category.ctgry}</span>
+								</div>
+							</a>
+						</div>
+						<div class="px-3 my-3 text-center">
+							<div class="cart-item-label">Quantity</div>
+							<div class="count-input">
+								<h:form>
+									<h:selectOneMenu styleClass="form-control" id="selectProdQtty"
+										value="#{cartProduct.productQntty}">
+										<f:ajax
+											listener="#{cartController.updateProductQttyInCart(cartProduct,username)}"
+											render="@all" />
+										<c:forEach var="i" begin="1" end="5">
+											<f:selectItem itemLabel="#{i}" itemValue="#{i}" />
+										</c:forEach>
+									</h:selectOneMenu>
+								</h:form>
+							</div>
+						</div>
+						<div class="px-3 my-3 text-center">
+							<div class="cart-item-label">Subtotal</div>
+							<span class="text-xl font-weight-medium">&#8377;
+								${cartProduct.subTotal}</span>
+						</div>
+					</div>
+				</ui:repeat>
+				<hr class="my-2"></hr>
+				<div class="px-3 my-3 text-center"
+					jsf:rendered="${not empty cartController.getCartProducts(username)}">
+					<div class="text-uppercase h5">Cart Total:</div>
+					<span class="h6">&#8377;
+						${cartController.getCartTotal(username)}</span>
+				</div>
+				<div class="px-3 my-3 text-center"
+					jsf:rendered="${empty cartController.getCartProducts(username)}">
+					<div class="text-uppercase h5">Cart is Empty!!!</div>
+					<span class="h6">Add Products to Cart</span>
+				</div>
+				<hr class="my-2"></hr>
+				<div class="row pt-3 pb-5 mb-2">
+					<div class="col-sm-6 mb-3">
+						<h:link
+							styleClass="btn btn-secondary btn-lg btn-block fa fa-backward me-2"
+							value="Back" outcome="product" />
+					</div>
+					<div class="col-sm-6 mb-3">
+						<h:link
+							styleClass="btn btn-primary btn-lg btn-block fa fa-shopping-bag me-2"
+							value="Proceed to Checkout" outcome="checkout"
+							disabled="${empty cartController.getCartProducts(username)}" />
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</ui:define>
+</ui:composition>
+</html>
