@@ -61,9 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/user/**").hasAuthority("USER").antMatchers("/admin/**")
 				.hasAuthority("ADMIN")
-				.antMatchers("/index.xhtml", "/signup.xhtml", "/access-denied.xhtml", "/resources/**").permitAll()
-				.anyRequest().authenticated().and().formLogin().loginPage("/index.xhtml").usernameParameter("username")
-				.passwordParameter("password").loginProcessingUrl("/login").and().logout()
+				.antMatchers("/index.xhtml", "/signup.xhtml", "/access-denied.xhtml", "/resources/css/**",
+						"/resources/images/**")
+				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/index.xhtml")
+				.usernameParameter("username").passwordParameter("password").loginProcessingUrl("/login").and().logout()
 				.logoutSuccessUrl("/index.xhtml").invalidateHttpSession(true).deleteCookies("JSESSIONID").and()
 				.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and().csrf().disable();
 

@@ -6,7 +6,7 @@
 		<!-- JDBC Database connection settings -->
 		<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
 		<property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
-		<property name="connection.username">demo_project</property>
+		<property name="connection.username">shopping_cart</property>
 		<property name="connection.password">welcome</property>
 		<!-- JDBC connection pool settings ... using built-in test pool -->
 		<property name="connection.pool_size">1</property>
