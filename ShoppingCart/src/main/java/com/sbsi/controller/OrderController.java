@@ -80,7 +80,10 @@ public class OrderController implements Serializable {
 	}
 
 	public BigInteger getMaxOrderNum() {
-		return orderService.getMaxOrderNum();
+		if(orderService.getMaxOrderNum()==null) {
+			return BigInteger.ZERO;
+		}
+		return orderService.getMaxOrderNum() ;
 	}
 
 	public String getOrderListPage() {

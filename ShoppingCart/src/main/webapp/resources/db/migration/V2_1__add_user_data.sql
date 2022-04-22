@@ -7,6 +7,10 @@ Insert into USER_ACCOUNT (USER_NAME,CONTACT_NO,ENABLED,FIRST_NAME,FULL_NAME,LAST
 -----Add User Role Table Data----
 Insert into USER_ROLES (USER_NAME,ROLE_TYPE) values ('abc@gmail.com','ADMIN');
 Insert into USER_ROLES (USER_NAME,ROLE_TYPE) values ('xyz@gmail.com','USER');
+----Associate Cat to Users----
+insert into cart(cart_id,total_price)values('abc@gmail.com',0);
+insert into cart(cart_id,total_price)values('xyz@gmail.com',0);
+
 
 
 
