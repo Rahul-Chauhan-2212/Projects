@@ -13,10 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -40,7 +41,7 @@ public class Product implements Serializable {
 	@Column(name = "PRICE", nullable = false, precision = 10, scale = 2)
 	private BigDecimal price;
 
-	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
 	@Column(name = "image", nullable = false)
 	private byte[] image;
 

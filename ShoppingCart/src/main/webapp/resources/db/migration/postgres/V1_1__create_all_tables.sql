@@ -1,0 +1,18 @@
+create table CART (CART_ID varchar(255) not null, TOTAL_PRICE numeric(10,2), primary key (CART_ID));
+create table CART_PRODUCTS (PRODUCT_QNTTY numeric(5,0) not null, SUB_TOTAL numeric(10,2) not null, CART_ID varchar(255) not null, P_CODE varchar(255) not null, primary key (CART_ID, P_CODE));
+create table ORDER_PRODUCTS (PRODUCT_QNTTY numeric(5,0) not null, SUB_TOTAL numeric(10,2) not null, ORDER_NUM numeric(5,0) not null, P_CODE varchar(255) not null, primary key (ORDER_NUM, P_CODE));
+create table ORDERS (ORDER_NUM numeric(5,0) not null, ORDER_AMOUNT numeric(10,2) not null, ADDRESS_LINE1 varchar(255), ADDRESS_LINE2 varchar(255), CITY varchar(255), COUNTRY varchar(255), STATE varchar(255), ZIPCODE varchar(255), CUSTOMER_EMAIL varchar(255) not null, CUSTOMER_NAME varchar(255) not null, CUSTOMER_PHONE varchar(255) not null, ORDER_DATE timestamp not null, USER_NAME varchar(255) not null, primary key (ORDER_NUM));
+create table PRODUCT (P_CODE varchar(255) not null, AVLBL_QNTTY numeric(5,0) not null, image bytea not null, DESCRIPTION varchar(255) not null, NAME varchar(255) not null, PRICE numeric(10,2) not null, C_CODE varchar(255) not null, primary key (P_CODE));
+create table PRODUCT_CATEGORY (C_CODE varchar(255) not null, CATEGORY varchar(255) not null, primary key (C_CODE));
+create table ROLE (ROLE_TYPE varchar(255) not null, primary key (ROLE_TYPE));
+create table USER_ACCOUNT (USER_NAME varchar(255) not null, CONTACT_NO varchar(255), ENABLED boolean default TRUE, FIRST_NAME varchar(255) not null, FULL_NAME varchar(255), LAST_NAME varchar(255), USER_PASSWORD varchar(255) not null, primary key (USER_NAME));
+create table USER_ROLES (USER_NAME varchar(255) not null, ROLE_TYPE varchar(255) not null, primary key (USER_NAME, ROLE_TYPE));
+alter table CART add constraint FKgndi2qx06e5p2gu2w4oxe7ofd foreign key (CART_ID) references USER_ACCOUNT;
+alter table CART_PRODUCTS add constraint FKc3t4ip14ek73i06cmslcn1rml foreign key (CART_ID) references CART;
+alter table CART_PRODUCTS add constraint FKjqi2usqcelrfe2i9a2mh35mit foreign key (P_CODE) references PRODUCT;
+alter table ORDER_PRODUCTS add constraint FKg86mqil0ays05nsrop0pjgkfv foreign key (ORDER_NUM) references ORDERS;
+alter table ORDER_PRODUCTS add constraint FKo17hjxih3sd7wwkp72x35klvq foreign key (P_CODE) references PRODUCT;
+alter table ORDERS add constraint FKd3k2cxtcuh1hmrx4kbs2loskg foreign key (USER_NAME) references USER_ACCOUNT;
+alter table PRODUCT add constraint FKib2c00kib1k55vw57snx3c79t foreign key (C_CODE) references PRODUCT_CATEGORY;
+alter table USER_ROLES add constraint FK116e96apt6lqygt2rjusqarat foreign key (ROLE_TYPE) references ROLE;
+alter table USER_ROLES add constraint FK61w7l5p34dxql575dcg5txyiq foreign key (USER_NAME) references USER_ACCOUNT;
