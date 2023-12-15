@@ -225,7 +225,7 @@
                 <executions>
                     <execution>
                         <id>flyway database migration</id>
-                        <phase>prepare-package</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>migrate</goal>
                             <goal>info</goal>
