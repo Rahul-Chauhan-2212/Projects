@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+html {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTALQgP_u_bvfxC9n-nah-PoiBYNuvISD07bA&usqp=CAU"), linear-gradient(to right, rgba(132, 250, 176, 1),
+  rgba(143, 211, 244, 1));
+}
